@@ -14,6 +14,11 @@ is($t->put('a',1),1,'insert into empty trie');
 is($t->put('a/b',2), 2, 'nested insert');
 is($t->put('a/c',3), 3, 'nested insert');
 
+my @with_path = $t->find_to('a/c');
+is(scalar @with_path,2);
+is($with_path[0]->value,1);
+is($with_path[1]->value,3);
+
 is($t->count,3,'element count');
 
 is($t->get('a')->value, 1, 'retrieve value');

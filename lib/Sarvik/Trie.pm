@@ -37,6 +37,17 @@ sub find {
   return @result;
 }
 
+sub find_to {
+  my ($self,$prefix) = @_;
+
+  return () unless ($prefix || $self->root);
+
+  my @track = ();
+  my $target = $self->root->find($self->path($prefix),\@track);
+
+  return @track;
+}
+
 sub put {
   my ($self,$key,$value) = @_;
 
