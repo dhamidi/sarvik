@@ -14,6 +14,8 @@ is($t->put('a',1),1,'insert into empty trie');
 is($t->put('a/b',2), 2, 'nested insert');
 is($t->put('a/c',3), 3, 'nested insert');
 
+is($t->count,3,'element count');
+
 is($t->get('a')->value, 1, 'retrieve value');
 is(scalar $t->find('a'), 3, 'retrieve with prefix');
 
@@ -22,5 +24,7 @@ is(scalar $t->find('a/b'), 1, 'nested retrieve with prefix');
 
 is($t->remove('a'),1, 'remove');
 is($t->get('a/b')->value, 2, 'find child after removal');
+
+is($t->count,2,'element count after removal');
 
 done_testing();
