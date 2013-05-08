@@ -13,14 +13,13 @@ our %Backends = (
     name => 'Sarvik::HTMPL',
     func => sub {
       my ($body,$env) = @_;
-      my $result;
+      package Sarvik::HTMPL;
+      foreach my $lib (@{ $env->{include} || [] }) {
+        require "$lib";
+        warn "$@$!\n" if $@;
+      }
 
-      eval sprintf("%s = Sarvik::HTMPL::html {\n%s\n};",
-                   '$result', $body);
-
-      die "$@$!\n" if $@;
-
-      return $result->to_string($env);
+      return from_string($body)->to_string($env);
     },
   },
 );

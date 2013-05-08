@@ -10,7 +10,17 @@ use Class::Struct
   template  => '$';
 
 
-our ($AUTOLOAD,$HTMPL);
+our ($AUTOLOAD,$HTMPL,@INCLUDE);
+
+sub from_string {
+  my ($result,$body) = (undef,@_);
+
+  $result = eval sprintf("%s = Sarvik::HTMPL::html {\n%s\n};",
+                         '$result', $body);
+  die "$@$!\n" if $@;
+
+  return $result;
+}
 
 sub html (&) {
   my ($code) = @_;
