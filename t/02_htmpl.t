@@ -41,10 +41,16 @@ $doc = Sarvik::HTMPL::html {
 is($doc->to_string, '<a href="?foo=1&amp;bar=2">foobar</a>','entity encoding of attributes');
 
 $doc = Sarvik::HTMPL::html {
-  p('1&1')
+  p('1&1',b('test'))
 };
 
-is($doc->to_string, '<p>1&amp;1</p>','entity encoding of text nodes');
+is($doc->to_string, '<p>1&amp;1<b>test</b></p>','entity encoding of text nodes');
+
+$doc = Sarvik::HTMPL::html {
+  tag(link => {href => 'style'})
+};
+
+is($doc->to_string, '<link href="style" />','tag name of perl core function');
 
 done_testing();
 

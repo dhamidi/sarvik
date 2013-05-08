@@ -21,13 +21,8 @@ sub html (&) {
    );
 }
 
-sub AUTOLOAD {
-  my ($name) = $AUTOLOAD =~ m/::(.*)$/;
-
-  if ($name =~ m/^_\w+/) {
-    no strict 'refs';
-    goto &{$name};
-  }
+sub tag {
+  my $name = shift @_;
 
   my ($attr,@args) = (undef,@_);
 
@@ -40,6 +35,18 @@ sub AUTOLOAD {
     attributes => $attr,
     children => \@args,
    );
+}
+
+sub AUTOLOAD {
+  my $name = (split '::',$AUTOLOAD)[-1];
+
+  if ($name =~ m/^_\w+/) {
+    no strict 'refs';
+    goto &{$name};
+  }
+
+  unshift @_,$name;
+  goto &tag;
 }
 
 sub _stash {
@@ -60,6 +67,7 @@ sub to_string {
   local $^H = $^H;
   strict->unimport;
   local *{caller.'::AUTOLOAD'} = \&AUTOLOAD;
+  local *{caller.'::tag'} = \&tag;
 
   local $HTMPL = $self;
   my $old_stash = $HTMPL->stash($stash);
