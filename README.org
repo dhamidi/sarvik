@@ -1,0 +1,20 @@
+* What Is It?
+
+Sarvik (Estonian for "antlered animal") is a static website generator
+aimed at people with programming knowledge.  It's main task is to make
+the hierarchical structure of your site's content (which already present
+in the filesystem) available to programs (usually some kind of
+templating system).
+
+This is currently a work in progress.
+
+* License & Copyright
+
+(C) Copyright 2013 Dario Hamidi <dario.hamidi@gmail.com>
+
+This program is released under the GPL version 3, that you should have
+received together with this program (see [[./LICENSE][LICENSE]]).
+
+
+
+
