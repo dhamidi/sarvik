@@ -13,7 +13,8 @@ sub insert {
   my @path = @{ $path };
   my $current_node = \$self;
 
-  while (my $part = shift @path) {
+  while (@path > 0) {
+    my $part = shift @path;
     if (exists ${$current_node}->children->{$part}) {
       $current_node = \${$current_node}->children($part);
     } else {
@@ -31,7 +32,8 @@ sub find {
   my @path = @{ $path };
   my $current_node = \$self;
 
-  while (my $part = shift @path) {
+  while (@path > 0) {
+    my $part = shift @path;
     if (exists ${$current_node}->children->{$part}) {
       $current_node = \${$current_node}->children($part);
       push @{ $track }, ${$current_node} if defined $track;

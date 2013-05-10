@@ -34,4 +34,8 @@ is($t->get('a/b')->value, 2, 'find child after removal');
 
 is($t->count,2,'element count after removal');
 
+is($t->put('/a',10),10,'insert with leading separator');
+isnt($t->get('a')->value,$t->get('/a')->value,'retrieve with leading separator');
+is($t->get('/a')->value,10);
+
 done_testing();
