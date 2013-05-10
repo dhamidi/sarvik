@@ -1,0 +1,4 @@
+#+title: home
+#+href:  /
+
+p(_stash('title'))

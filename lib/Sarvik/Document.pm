@@ -113,6 +113,21 @@ sub parse {
   return $self;
 }
 
+sub from_file {
+  my ($package,$filename) = @_;
+
+  my $self;
+
+  {
+    local $/;
+    open (my $fh,'<', $filename) or die "$filename: $!\n";
+    $self = parse($package,<$fh>);
+    close ($fh);
+  }
+
+  return $self;
+}
+
 sub process {
   my ($self,$env) = @_;
   return $self->template->process($env);

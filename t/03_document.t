@@ -27,4 +27,7 @@ is($doc->process($doc->stash),
    '<head><link rel="stylesheet" href="foo.css" type="text/css" />'
      .'<title>hello, world</title></head>');
 
+my $from_file = Sarvik::Document->from_file('t/example/index.htmpl');
+is($from_file->stash('title'),'home');
+
 done_testing();
